@@ -8,36 +8,20 @@ MAX_FILE_SIZE = 10 * 1024 * 1024
 
 def validate_image(uploaded_file):
     try:
-        # Read file data to determine size
-        uploaded_file.seek(0)
-        file_data = uploaded_file.read()
-        file_size = len(file_data)
-
         # Check file size
-        if file_size > MAX_FILE_SIZE:
+        if uploaded_file.size > MAX_FILE_SIZE:
             return False, "File size is larger than 10 MB."
 
-        # Reset file position
-        uploaded_file.seek(0)
+        # Check file format using filename
+        file_extension = uploaded_file.name.lower().split(".")[-1]
 
-        # Open image
-        image = Image.open(uploaded_file)
-
-        # Check image format
-        if image.format not in ALLOWED_FORMATS:
+        if file_extension not in ["jpg", "jpeg", "png", "webp"]:
             return False, "Unsupported image format."
-
-        # Verify image integrity
-        image.verify()
-
-        # Reset file position again
-        uploaded_file.seek(0)
 
         return True, "Valid image."
 
-    except Exception:
-        uploaded_file.seek(0)
-        return False, "Invalid or corrupted image."
+    except Exception as e:
+        return False, f"Image validation error: {str(e)}"
 
 
 def get_image_info(image):
