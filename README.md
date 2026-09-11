@@ -9,7 +9,7 @@ background, and provides the result as a transparent PNG.
 
 Live Demo
 
-[Try BGenius](https://bgremover-jrcqieejhufl59vcpxm57.streamlit.app/)
+[Try BGRemover](https://bgremover-jrcqieeijhufl59vcpxm57.streamlit.app/)
 
 Features
 
