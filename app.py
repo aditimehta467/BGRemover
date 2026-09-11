@@ -97,13 +97,8 @@ with st.sidebar:
 # FILE UPLOAD
 uploaded_file = st.file_uploader(
     "Upload your image",
-    type=[
-        "jpg",
-        "jpeg",
-        "png",
-        "webp"
-    ],
-    accept_multiple_files=True
+    type=["jpg","jpeg","png","webp"],
+    accept_multiple_files=False
 )
 
 
