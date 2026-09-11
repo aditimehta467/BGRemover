@@ -1,10 +1,16 @@
-from rembg import remove
+from rembg import remove, new_session
 from PIL import Image
 import io
 import time
+from functools import lru_cache
 
 
 MAX_DIMENSION = 2500
+
+
+@lru_cache(maxsize=1)
+def get_model():
+    return new_session("u2net")
 
 
 def resize_image(image):
@@ -30,7 +36,7 @@ def resize_image(image):
 
 def remove_background(image):
     """
-    Remove the background from an image using rembg.
+    Remove the background from an image using U²-Net.
     Returns the processed image and processing time.
     """
 
@@ -38,7 +44,8 @@ def remove_background(image):
 
     start_time = time.perf_counter()
 
-    output = remove(image)
+    session = get_model()
+    output = remove(image, session=session)
 
     end_time = time.perf_counter()
 
